@@ -10,7 +10,7 @@ class Movie extends Model
     /** @use HasFactory<\Database\Factories\MovieFactory> */
     use HasFactory;
 
-    public function customer()
+    public function director()
     {
         return $this->belongsTo(Director::class);
     }

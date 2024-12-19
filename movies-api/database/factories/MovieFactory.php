@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Director;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,10 +17,8 @@ class MovieFactory extends Factory
     public function definition(): array
     {
         return [
-            'director_id' => Director::factory(),
             'name' => $this->faker->word(),
-            'description' => $this->faker->sentence(),
-            'release_date' => $this->faker->date('Y-m-d', '2020-12-31')
+            'description' => $this->faker->sentence()
         ];
     }
 }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
 use App\Models\Director;
 use App\Http\Requests\StoreDirectorRequest;
 use App\Http\Requests\UpdateDirectorRequest;
+use App\Http\Controllers\Controller;
 
 class DirectorController extends Controller
 {
@@ -14,9 +14,7 @@ class DirectorController extends Controller
      */
     public function index()
     {
-        $directors = Director::all();
-
-        return $directors;
+        //
     }
 
     /**

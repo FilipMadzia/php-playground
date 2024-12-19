@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\V1\DirectorController;
 use App\Http\Controllers\Api\V1\MovieController;
+use App\Models\Director;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -11,6 +11,6 @@ Route::get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function()
 {
-    Route::apiResource('directors', DirectorController::class);
     Route::apiResource('movies', MovieController::class);
+    Route::apiResource('directors', Director::class);
 });

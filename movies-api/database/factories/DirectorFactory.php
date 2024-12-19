@@ -17,9 +17,8 @@ class DirectorFactory extends Factory
     public function definition(): array
     {
         return [
-            'first_name' => $this->faker->firstNameMale(),
-            'last_name' => $this->faker->lastName(),
-            'birth_date' => $this->faker->date('Y-m-d', '1999-12-31')
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastname()
         ];
     }
 }
