@@ -6,6 +6,8 @@ use App\Models\Director;
 use App\Http\Requests\StoreDirectorRequest;
 use App\Http\Requests\UpdateDirectorRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\V1\DirectorCollection;
+use App\Http\Resources\V1\DirectorResource;
 
 class DirectorController extends Controller
 {
@@ -14,7 +16,9 @@ class DirectorController extends Controller
      */
     public function index()
     {
-        //
+        $directors = Director::paginate();
+
+        return new DirectorCollection($directors);
     }
 
     /**
@@ -38,7 +42,7 @@ class DirectorController extends Controller
      */
     public function show(Director $director)
     {
-        //
+        return new DirectorResource($director);
     }
 
     /**
