@@ -8,17 +8,31 @@ use App\Http\Requests\UpdateDirectorRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\DirectorCollection;
 use App\Http\Resources\V1\DirectorResource;
+use App\Services\V1\DirectorQuery;
+use Illuminate\Http\Request;
 
 class DirectorController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $directors = Director::paginate();
+        $filter = new DirectorQuery();
+        $queryItems = $filter->transform($request);
 
-        return new DirectorCollection($directors);
+        $noQueryItems = count($queryItems) == 0;
+
+        if($noQueryItems)
+        {
+            $directors = Director::paginate($queryItems);
+
+            return new DirectorCollection($directors);
+        }
+
+        $filteredDirectors = Director::where($queryItems)->paginate();
+
+        return new DirectorCollection($filteredDirectors);
     }
 
     /**
