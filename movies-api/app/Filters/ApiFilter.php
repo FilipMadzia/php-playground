@@ -1,23 +1,18 @@
 <?php
 
-namespace App\Services\V1;
+namespace App\Filters;
 
 use Illuminate\Http\Request;
 
-class DirectorQuery
+class ApiFilter
 {
-    protected $safeParams = [
-        'firstName' => ['eq'],
-        'lastName' => ['eq']
-    ];
+    protected $safeParams = [];
 
-    protected $columnMap = [
-        'firstName' => 'first_name',
-        'lastName' => 'last_name'
-    ];
+    protected $columnMap = [];
 
     protected $operatorMap = [
-        'eq' => '='
+        'eq' => '=',
+        'neq' => '!='
     ];
     
     public function transform(Request $request)

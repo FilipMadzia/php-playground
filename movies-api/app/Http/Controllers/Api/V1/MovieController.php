@@ -2,23 +2,38 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Filters\V1\MoviesFilter;
 use App\Models\Movie;
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Requests\UpdateMovieRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\MovieCollection;
 use App\Http\Resources\V1\MovieResource;
+use Illuminate\Http\Request;
 
 class MovieController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $movies = Movie::paginate();
+        $filter = new MoviesFilter();
+        $queryItems = $filter->transform($request);
 
-        return new MovieCollection($movies);
+        $noQueryItems = count($queryItems) == 0;
+
+        if($noQueryItems)
+        {
+            $movies = Movie::paginate();
+
+            return new MovieCollection($movies);
+        }
+
+        $filteredMovies = Movie::where($queryItems)->paginate();
+        $filteredMovies->appends($request->query());
+
+        return new MovieCollection($filteredMovies);
     }
 
     /**
