@@ -19,21 +19,18 @@ class DirectorController extends Controller
     public function index(Request $request)
     {
         $filter = new DirectorsFilter();
-        $queryItems = $filter->transform($request);
+        $filterItems = $filter->transform($request);
 
-        $noQueryItems = count($queryItems) == 0;
+        $includeMovies = $request->query('includeMovies');
 
-        if($noQueryItems)
+        $filteredDirectors = Director::where($filterItems);
+
+        if($includeMovies)
         {
-            $directors = Director::paginate();
-
-            return new DirectorCollection($directors);
+            $filteredDirectors = $filteredDirectors->with('movies');
         }
 
-        $filteredDirectors = Director::where($queryItems)->paginate();
-        $filteredDirectors->appends($request->query());
-
-        return new DirectorCollection($filteredDirectors);
+        return new DirectorCollection($filteredDirectors->paginate()->appends($request->query()));
     }
 
     /**
@@ -57,6 +54,13 @@ class DirectorController extends Controller
      */
     public function show(Director $director)
     {
+        $includeMovies = request()->query('includeMovies');
+
+        if($includeMovies)
+        {
+            $director = $director->loadMissing('movies');
+        }
+
         return new DirectorResource($director);
     }
 

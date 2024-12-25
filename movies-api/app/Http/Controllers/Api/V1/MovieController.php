@@ -19,21 +19,11 @@ class MovieController extends Controller
     public function index(Request $request)
     {
         $filter = new MoviesFilter();
-        $queryItems = $filter->transform($request);
+        $filterItems = $filter->transform($request);
 
-        $noQueryItems = count($queryItems) == 0;
+        $filteredMovies = Movie::where($filterItems);
 
-        if($noQueryItems)
-        {
-            $movies = Movie::paginate();
-
-            return new MovieCollection($movies);
-        }
-
-        $filteredMovies = Movie::where($queryItems)->paginate();
-        $filteredMovies->appends($request->query());
-
-        return new MovieCollection($filteredMovies);
+        return new MovieCollection($filteredMovies->paginate()->appends($request->query()));
     }
 
     /**

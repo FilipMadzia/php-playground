@@ -17,7 +17,8 @@ class DirectorResource extends JsonResource
         return [
             'id' => $this->id,
             'firstName' => $this->first_name,
-            'lastName' => $this->last_name
+            'lastName' => $this->last_name,
+            'movies' => MovieResource::collection($this->whenLoaded('movies'))
         ];
     }
 }
