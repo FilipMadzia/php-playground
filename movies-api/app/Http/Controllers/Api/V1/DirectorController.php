@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Director;
-use App\Http\Requests\StoreDirectorRequest;
-use App\Http\Requests\UpdateDirectorRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\DirectorCollection;
 use App\Http\Resources\V1\DirectorResource;
 use App\Filters\V1\DirectorsFilter;
+use App\Http\Requests\V1\StoreDirectorRequest;
 use Illuminate\Http\Request;
 
 class DirectorController extends Controller
@@ -34,19 +33,11 @@ class DirectorController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreDirectorRequest $request)
     {
-        //
+        return new DirectorResource(Director::create($request->all()));
     }
 
     /**
@@ -65,17 +56,9 @@ class DirectorController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Director $director)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateDirectorRequest $request, Director $director)
+    public function update(Request $request, Director $director)
     {
         //
     }
