@@ -8,6 +8,7 @@ use App\Http\Resources\V1\DirectorCollection;
 use App\Http\Resources\V1\DirectorResource;
 use App\Filters\V1\DirectorsFilter;
 use App\Http\Requests\V1\StoreDirectorRequest;
+use App\Http\Requests\V1\UpdateDirectorRequest;
 use Illuminate\Http\Request;
 
 class DirectorController extends Controller
@@ -58,9 +59,9 @@ class DirectorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Director $director)
+    public function update(UpdateDirectorRequest $request, Director $director)
     {
-        //
+        $director->update($request->all());
     }
 
     /**
