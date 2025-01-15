@@ -13,4 +13,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
 {
     Route::apiResource('movies', MovieController::class);
     Route::apiResource('directors', DirectorController::class);
+
+    Route::post('movies/bulk', ['uses' => 'MovieController@bulkStore']);
 });
