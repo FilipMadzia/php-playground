@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
@@ -17,7 +18,7 @@ Route::get('/setup', function() {
 
     if(!Auth::attempt($credentials))
     {
-        $user = new \App\Models\User();
+        $user = new User();
 
         $user->name = 'Admin';
         $user->email = $credentials['email'];
