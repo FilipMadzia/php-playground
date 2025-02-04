@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CatCollection;
+use App\Http\Resources\CatResource;
 use App\Models\Cat;
 use Illuminate\Http\Request;
 
@@ -11,7 +13,7 @@ class CatController extends Controller
     {
         $cats = Cat::all();
 
-        return $cats;
+        return new CatCollection($cats);
     }
 
     public function store(Request $request)
@@ -30,7 +32,7 @@ class CatController extends Controller
 
     public function show(Cat $cat)
     {
-        return $cat;
+        return new CatResource($cat);
     }
 
     public function update(Request $request, Cat $cat)
